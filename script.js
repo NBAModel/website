@@ -88,16 +88,13 @@ function compareStats() {
     }
 }
 
- function handleTeamSelect(event) {
-            const selectedTeam = event.target.value;
-            const tableId = event.target.id === 'team1' ? 'team1-stats' : 'team2-stats';
-            displayTeamStats(selectedTeam, tableId);
-        }
+function handleTeamSelect(event) {
+    const selectedTeam = event.target.value;
+    const tableId = event.target.id === 'team1' ? 'team1-stats' : 'team2-stats';
+    displayTeamStats(selectedTeam, tableId);
+}
 
-        document.getElementById('team1').addEventListener('change', handleTeamSelect);
-        document.getElementById('team2').addEventListener('change', handleTeamSelect);
+document.getElementById('team1').addEventListener('change', handleTeamSelect);
+document.getElementById('team2').addEventListener('change', handleTeamSelect);
 
-        populateTeamSelects();
-    </script>
-</body>
-</html>
+populateTeamSelects();
