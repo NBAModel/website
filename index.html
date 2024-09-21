@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA All-Time Teams Comparison</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>NBA All-Time Teams Comparison</h1>
+    <div class="help-icon">
+        <i class="fas fa-question-circle" id="help-button"></i>
+    </div>
     <div class="comparison-container">
         <div class="team-column">
             <select id="team1">
@@ -22,7 +26,13 @@
             <table id="team2-stats"></table>
         </div>
     </div>
-
+    <div id="explanation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Model Explanation</h2>
+            <div id="explanation-text"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
