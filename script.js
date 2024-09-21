@@ -98,3 +98,111 @@ document.getElementById('team1').addEventListener('change', handleTeamSelect);
 document.getElementById('team2').addEventListener('change', handleTeamSelect);
 
 populateTeamSelects();
+
+// Model Explanation Modal
+const modal = document.getElementById("explanation-modal");
+const btn = document.getElementById("help-button");
+const span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+    modal.style.display = "block";
+    document.getElementById("explanation-text").innerHTML = `
+        <h3>Stats</h3>
+        <table>
+            <tr><th>Stat</th><th>Meaning</th></tr>
+            <tr><td>Top 3 in Conference</td><td>If a team had a top 3 record in their respective conference</td></tr>
+            <tr><td>Offensive eFG%</td><td>(Total Field Goals Made + 0.5 x Total 3 Pointers Made)/Total Field Goals Attempted</td></tr>
+            <tr><td>Preseason Odds</td><td>According to odds makers at the beginning of the season, what was the chance that team became the eventual champions</td></tr>
+            <tr><td>Top 6 in SRS</td><td>If a team was top 6 in the league in the Simple Rating System metric (SRS compares the number of points a team scores against how many they allow)</td></tr>
+            <tr><td>Offensive Rebound %</td><td>The % of missed shots, where the team obtains an offensive rebound</td></tr>
+            <tr><td>DPOY Share</td><td>The total Defensive Player Of the Year vote shares all players on the team have earned in the past 5 years</td></tr>
+            <tr><td>True Shooting %</td><td>Total Points Scored/(2 x (Total Field Goals Attempted + 0.44 x Total Free Throws Attempted))</td></tr>
+            <tr><td>MVP Share</td><td>The total Most Valuable Player vote shares all players on the team have earned in the past 5 years</td></tr>
+            <tr><td>Defensive Rating</td><td>The number of points the opposition team scores per 100 possessions</td></tr>
+            <tr><td>Age</td><td>The average age of all players on the team</td></tr>
+            <tr><td>Top 5 in Offensive eFG%</td><td>If a team was top 5 in the league in Offensive effective Field Goal %</td></tr>
+            <tr><td>3 Point %</td><td>The % of 3 point shots the team makes</td></tr>
+            <tr><td>Net Rating</td><td>The number of points the team scores per 100 possessions - The number of points the opposition team scores per 100 possessions</td></tr>
+            <tr><td>Top 6 in Home Winning %</td><td>If a team was top 6 in winning % of home games</td></tr>
+        </table>
+
+        <h3>Calculations</h3>
+        <p>This model is a comparison model, meaning the same team won't always get the same score. It depends on the other teams being used in the model.</p>
+        <p>This model takes 3 main steps to calculate a final score:</p>
+
+        <h4>1. Scoring</h4>
+        <p>The first step in the calculations assigns each variable a value from 0 to 1, 1 being the best, 0 being the worst.</p>
+        <p>X = a teams score in a certain stat<br>
+        Min = the minimum value of all teams for that stat<br>
+        Max = the maximum value of all teams for that stat</p>
+
+        <h5>Highest is best:</h5>
+        <p>(X - Min) / (Max - Min)</p>
+        <ul>
+            <li>Top 3 in Conference</li>
+            <li>Offensive eFG%</li>
+            <li>Top 6 in SRS</li>
+            <li>Offensive Rebound %</li>
+            <li>DPOY Share</li>
+            <li>True Shooting %</li>
+            <li>MVP Share</li>
+            <li>Top 5 in Offensive eFG%</li>
+            <li>3 Point %</li>
+            <li>Net Rating</li>
+            <li>Top 6 in Home Winning %</li>
+        </ul>
+
+        <h5>Lowest is best:</h5>
+        <p>(Max - X) / (Max - Min)</p>
+        <ul>
+            <li>Defensive Rating</li>
+        </ul>
+
+        <h4>Unique:</h4>
+        <h5>Preseason Odds:</h5>
+        <p>Preseason odds start off with odds (e.g +450) and are converted to a percentage through this formula</p>
+        <p>If X is positive: (100 / (X + 100)) x 100<br>
+        If X is negative: (-X / (-X + 100)) x 100</p>
+        <p>The percentage chance is then put through the normal highest is best formula</p>
+
+        <h5>Age:</h5>
+        <p>Age is calculate by the following formula</p>
+        <p>1 - (|27.9 - X| x (1 / (27.9 - Min)))</p>
+
+        <h4>2. Weighting</h4>
+        <p>After each team is assigned a value for each stat these values are weighted depending on the correlation of the stat to winning championships.</p>
+        <table>
+            <tr><th>Stat</th><th>Weight</th></tr>
+            <tr><td>Top 3 in Conference</td><td>0.4145</td></tr>
+            <tr><td>Offensive eFG%</td><td>0.05</td></tr>
+            <tr><td>Preseason Odds</td><td>0.0708</td></tr>
+            <tr><td>Top 6 in SRS</td><td>0.0648</td></tr>
+            <tr><td>Offensive Rebound %</td><td>0.0411</td></tr>
+            <tr><td>DPOY Share</td><td>0.005</td></tr>
+            <tr><td>True Shooting %</td><td>0.0361</td></tr>
+            <tr><td>MVP Share</td><td>0.07</td></tr>
+            <tr><td>Defensive Rating</td><td>0.02</td></tr>
+            <tr><td>Age</td><td>0.034</td></tr>
+            <tr><td>Top 5 in Offensive eFG%</td><td>0.0489</td></tr>
+            <tr><td>3 Point %</td><td>0.051</td></tr>
+            <tr><td>Net Rating</td><td>0.02</td></tr>
+            <tr><td>Top 6 in Home Winning %</td><td>0.0638</td></tr>
+        </table>
+        <p>The sum of all the weights is 1 meaning this is the theoretical maximum score if a team is the best in every category.</p>
+        <p>The values of these weightings is derived from data from the past 30 NBA seasons</p>
+
+        <h4>3. Summation</h4>
+        <p>Now each team has a weighted score for each of the variables. The scores are totalled together and the result is multiplied by 100 to create the final score.</p>
+        <p>The final scores are sorted to create a final ranking. The team with the highest score is predicted to win the NBA Championship!</p>
+    `;
+}
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
