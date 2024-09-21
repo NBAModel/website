@@ -60,9 +60,6 @@ th {
     height: 100%;
     overflow: hidden;
     background-color: rgba(0,0,0,0.4);
-    display: flex;           /* Added */
-    justify-content: center; /* Added */
-    align-items: center;     /* Added */
 }
 .modal-content {
     background-color: #fefefe;
@@ -72,8 +69,10 @@ th {
     max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
-    position: relative;
-    /* Removed top and transform properties */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .close {
     color: #aaa;
