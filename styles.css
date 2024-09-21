@@ -58,21 +58,22 @@ th {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Changed from auto to hidden */
+    overflow: hidden;
     background-color: rgba(0,0,0,0.4);
+    display: flex;           /* Added */
+    justify-content: center; /* Added */
+    align-items: center;     /* Added */
 }
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
-    max-height: 70vh; /* Reduced from 80vh to 70vh to ensure it fits on most screens */
+    max-height: 80vh;
     overflow-y: auto;
-    position: relative; /* Added */
-    top: 50%; /* Added */
-    transform: translateY(-50%); /* Added */
+    position: relative;
+    /* Removed top and transform properties */
 }
 .close {
     color: #aaa;
