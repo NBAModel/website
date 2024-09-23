@@ -124,6 +124,7 @@ btn.onclick = function() {
             <tr><td>3 Point %</td><td>The % of 3 point shots the team makes</td></tr>
             <tr><td>Net Rating</td><td>The number of points the team scores per 100 possessions - The number of points the opposition team scores per 100 possessions</td></tr>
             <tr><td>Top 6 in Home Winning %</td><td>If a team was top 6 in winning % of home games</td></tr>
+            <tr><td>Clutch Winning %</td><td>Teams winning % in games that were within 5 points in the final 5 minutes (this stat wasn't used in the all time comparison as the stats were only measured back to the 1996-97 season)</td></tr>
         </table>
 
         <h3>Calculations</h3>
@@ -150,6 +151,7 @@ btn.onclick = function() {
             <li>3 Point %</li>
             <li>Net Rating</li>
             <li>Top 6 in Home Winning %</li>
+            <li>Clutch Winning %</li>
         </ul>
 
         <h5>Lowest is best:</h5>
@@ -187,6 +189,7 @@ btn.onclick = function() {
             <tr><td>3 Point %</td><td>0.051</td></tr>
             <tr><td>Net Rating</td><td>0.02</td></tr>
             <tr><td>Top 6 in Home Winning %</td><td>0.0638</td></tr>
+            <tr><td>Clutch Winning %</td><td>0.01</td></tr>
         </table>
         <p>The sum of all the weights is 1 meaning this is the theoretical maximum score if a team is the best in every category.</p>
         <p>The values of these weightings is derived from data from the past 30 NBA seasons</p>
