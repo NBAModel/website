@@ -87,3 +87,13 @@ th {
     text-decoration: none;
     cursor: pointer;
 }
+
+.season-selector {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#season-select {
+    padding: 8px;
+    font-size: 16px;
+}
