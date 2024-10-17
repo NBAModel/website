@@ -297,7 +297,7 @@ btn.onclick = function() {
             <tr><td>Clutch Winning %</td><td>0.01</td></tr>
         </table>
         <p>The sum of all the weights is 1 meaning this is the theoretical maximum score if a team is the best in every category.</p>
-        <p>The values of these weightings is derived from data from the past 25 NBA seasons</p>
+        <p>The values of these weightings is derived from data from the past 25 NBA seasons using a machine learning algorithm called SHAP. Using data from basketball reference imputed into a tree based regressor algorithm, SHAP compares success in each of the statistics to total playoff wins (The NBA Champion will always win 16 playoff games). Using this data it assigns each statistic a value depending on the strength of its correlation. Using these results I chose the 15 most relevant statistics to use in my model.</p>
 
         <h4>3. Summation</h4>
         <p>Now each team has a weighted score for each of the variables. The scores are totalled together and the result is multiplied by 100 to create the final score.</p>
